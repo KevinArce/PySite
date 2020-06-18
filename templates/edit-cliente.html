@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="card bg-primary">
+    <div class="card-body">
+        <div class="card-header bg-success">
+            Editar Cliente
+          </div>
+          <form action="/update/{{ client.0}}" method="POST">
+            <input type="text" name="Nombre" placeholder="Nombre" value="{{ client.1 }}">
+            <input type="text" name="direccion_cliente" placeholder="Direccion" value="{{ client.2 }}">
+            <input type="text" name="telefono" placeholder="Telefono" value="{{ client.3 }}">
+            <button type="submit">
+                Save
+            </button>
+        </form>
+        <br></br>
+        <a class="btn btn-success" href="/" role="button">Home</a>
+        <br></br>
+        <a class="btn btn-success" href="/entregapedidos" role="button">Pedidos</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+    {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    
+    <div class="col-md-5">
+        <div class="card-header bg-success">
+            Agregar Cliente
+          </div>
+        <div class="card card-body bg-primary">
+            <form action="/add_cliente" method="POST">
+                <input type="text" name="Nombre" placeholder="Nombre" class="form-control">
+                <input type="text" name="direccion_cliente" placeholder="Direccion" class="form-control">
+                <input type="text" name="telefono" placeholder="Telefono" class="form-control">
+                <button type="submit" class="btn btn-danger">Save</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <table class="table bg-primary table-hover table-bordered">
+            <thead>
+                <tr class="bg-success">
+                    <td>idCliente</td>
+                    <td>Nombre</td>
+                    <td>Direccion</td>
+                    <td>Telefono</td>
+                    <td>Comandos</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in cliente %}
+            <tr>
+                <td>{{ client.0 }}</td>
+                <td>{{ client.1 }}</td>
+                <td>{{ client.2 }}</td>
+                <td>{{ client.3 }}</td>
+                <td>
+                    <a href="/edit/{{ client.0 }}"class="btn btn-secondary">Edit</a>
+                    <a href="/delete/{{client.0}}"class="btn btn-danger btn-delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="/entregapedidos" role="button">Pedidos</a>
+    </div>
+
+{% endblock %}

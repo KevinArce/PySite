@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row">
+    {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    
+    <div class="col-md-5">
+        <div class="card-header bg-success">
+            Agregar Entrega
+          </div>
+        <div class="card card-body bg-primary">
+            <form action="/add_entregapedidos" method="POST">
+                <input type="text" name="idempleado" placeholder="idEmpleado" class="form-control">
+                <input type="text" name="detallePedido" placeholder="Detalle Pedido" class="form-control">
+                <input type="text" name="tiempoEntrega" placeholder="YYYY-MM-DD hh:mm:ss" class="form-control">
+                <input type="text" name="numero_mesa" placeholder="Mesa" class="form-control">
+
+                <button type="submit" class="btn btn-danger">Save</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-md-7">
+        <table class="table bg-primary table-hover table-bordered">
+            <thead>
+                <tr class="bg-success">
+                    <td>idEmpleado</td>
+                    <td>Detalle Pedido</td>
+                    <td>Pedido Realizado</td>
+                    <td>Mesa</td>
+                    <td>Comandos</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entregapedido in entregapedidos %}
+            <tr>
+                <td>{{ entregapedido.0 }}</td>
+                <td>{{ entregapedido.1 }}</td>
+                <td>{{ entregapedido.2 }}</td>
+                <td>{{ entregapedido.3 }}</td>
+                <td>
+                    <a href="/editP/{{ entregapedido.4 }}"class="btn btn-secondary">Edit</a>
+                    <a href="/deleteP/{{entregapedido.4}}"class="btn btn-danger btn-delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br></br>
+        <a class="btn btn-success" href="/" role="button">Home</a>
+    </div>
+</div>
+{% endblock %}
